@@ -50,12 +50,28 @@ console.log(pEl.classList.contains('yellow'))
 pEl.classList.replace('bold', 'yellow')
 // replace 'replaces' one class on the element with another class. This one replaces bold with yellow.
 
+pEl.classList.add('blue')
+
 // -------------------------
 
 let aEl = document.querySelector('a');
-// correlates to line 16 in the HTML
+// correlates to line 21 in the HTML
 
 // setAttribute is very powerful and can be used for many things. for example: Can be used to set classes on an element, can be used to set href, src, ids, etc.
 
 aEl.setAttribute('href', 'http://www.google.com')
 // this sets the href (hypertext reference) or target of the link
+
+// -------------------------
+
+// To select multiple elements at the same time, you use document.querySelectorAll('selector').
+
+const liEls = document.querySelectorAll('.comment')
+// correlates to lines 17 through 19 in the HTML
+
+// console.log(liEls)
+
+for(let commentEl of liEls) {
+  commentEl.style.fontSize = '30px'
+}
+
