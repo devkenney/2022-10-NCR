@@ -11,3 +11,19 @@ button.addEventListener('click', (event) => {
   document.querySelector('ul').appendChild(newLi)
   // finally adds the li we created to the page inside of the ul element (line 15 - 17)
 })
+// ---------------
+// Event delegation time!
+// ---------------
+
+const ul = document.querySelector('ul')
+// Selects the ul element from the HTML (lines 15 - 17)
+const handleClick = (event) => {
+  // creates a new function to be used with an event listener later on
+  event.target.style.color = 'red'
+  // sets the target of the event's text color to red when clicked
+}
+ul.addEventListener('click', handleClick)
+// adds an event listener of the 'click' type to the ul we selected above, using the handleClick function we defined above
+
+// ul.removeEventListener('click', handleClick)
+// removes the event listener of the click type called 'handleClick' from the ul element that we selected above
