@@ -27,3 +27,5 @@ ul.addEventListener('click', handleClick)
 
 // ul.removeEventListener('click', handleClick)
 // removes the event listener of the click type called 'handleClick' from the ul element that we selected above
+
+// change for testing commits
