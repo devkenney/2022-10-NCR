@@ -1,9 +1,19 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
-const fruits = require('./models/fruits.js')
+const mongoose = require('mongoose')
+const Fruit = require('./Models/fruit.js')
 
 app.set('view engine', 'jsx');
 app.engine('jsx', require('jsx-view-engine').createEngine())
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+mongoose.connection.once('open', ()=> {
+  console.log('connected to mongo');
+});
 
 app.use((req, res, next) => {
   console.log('I run for all routes');
@@ -14,7 +24,12 @@ app.use(express.urlencoded({extended:false}));
 
 // Index Route
 app.get('/fruits', (req, res) => {
-  res.render('Index', { fruits: fruits })
+  Fruit.find({})
+    .then(result => {
+      res.render('Index', {
+        fruits: result
+      })
+    })
 });
 
 // New Route
@@ -35,17 +50,25 @@ app.post('/fruits', (req, res) => {
     req.body.readyToEat = false
   }
 
-  fruits.push({...req.body});
-  res.redirect('/fruits');
+  Fruit.create(req.body)
+    .then(result => {
+      res.redirect('/fruits')
+    })
+    .catch(error => {
+      res.send("something went wrong!")
+    })
 })
 
 // Edit Route
 
 // Show Route
-app.get('/fruits/:index', (req, res) => {
-  res.render('Show', {
-    fruit: fruits[req.params.index]
-  })
+app.get('/fruits/:id', (req, res) => {
+  Fruit.findOne({_id: req.params.id})
+    .then(result => {
+      res.render('Show', {
+        fruit: result
+      })
+    })
 })
 
 app.listen(3000, () => {
