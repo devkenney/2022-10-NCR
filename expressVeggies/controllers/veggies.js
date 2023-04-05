@@ -57,6 +57,12 @@ router.put('/:id', (req, res) => {
 
 // Create
 router.post('/', (req, res) => {
+  if (req.body.readyToEat === 'on') {
+    req.body.readyToEat = true
+  } else {
+    req.body.readyToEat = false
+  }
+  
   Veggie.create(req.body)
     .then(result => {
       console.log(result);

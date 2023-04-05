@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true
 });
 db.on('error', err => console.log(err.message + ' is mongod not running?'));
-db.on('open', () => console.log('mongo connected: ', mongoURI));
+db.on('open', () => console.log('mongo connected'));
 db.on('close', () => console.log('mongo disconnected!'))
 
 // MIDDLEWARE
