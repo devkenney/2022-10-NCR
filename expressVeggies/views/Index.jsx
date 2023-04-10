@@ -6,7 +6,7 @@ class Index extends React.Component {
     const veggies = this.props.veggies
     return (
       <DefaultLayout title="Veggies Index Page">
-        <nav><a href="/veggies/new">Create a New Veggie!</a></nav>
+        <nav><a href="/veggies/new">Create a New Veggie!</a> <a href="/users/logout"><button>Log out</button></a></nav>
         <ul>
           {veggies.map((veggie, i) => {
             return (

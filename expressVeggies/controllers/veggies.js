@@ -2,11 +2,19 @@ const express = require('express');
 const router = express.Router()
 const Veggie = require('../models/veggie')
 
+router.use((req, res, next) => {
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect('/users/login');
+  }
+})
+
 // REMEMBER INDUCES
 
 // Index
 router.get('/', (req, res) => {
-  Veggie.find({})
+  Veggie.find({ username: req.session.username })
     .then(result => {
       res.render('Index', {
         veggies: result
@@ -15,13 +23,13 @@ router.get('/', (req, res) => {
     .catch(error => {
       console.error(error)
       res.send(error)
-    })
-})
+    });
+});
 
 // New
 router.get('/new', (req, res) => {
   res.render('New')
-})
+});
 
 // Delete
 router.delete('/:id', (req, res) => {
@@ -62,6 +70,8 @@ router.post('/', (req, res) => {
   } else {
     req.body.readyToEat = false
   }
+
+  req.body.username = req.session.username
   
   Veggie.create(req.body)
     .then(result => {
