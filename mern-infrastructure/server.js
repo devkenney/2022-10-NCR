@@ -3,6 +3,10 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
+require('dotenv').config();
+
+// database connection
+require('./config/database');
 
 // This creates our express app using the express module we required on line 2. This adds all of the methods and other functionality to our app so we can then use it to process any request that comes in to our server.
 const app = express();
