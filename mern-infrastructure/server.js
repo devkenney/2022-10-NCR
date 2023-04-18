@@ -30,6 +30,8 @@ app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 // __dirname is just a standard parameter telling path that we're looking for a specific directory with the name 'build;
 app.use(express.static(path.join(__dirname, 'build')));
 
+app.use(require('./config/checkToken'));
+
 // API ROUTES GO HERE ONCE WE HAVE THEM
 app.use('/api/users', require('./routes/api/users'));
 
