@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { signUp } from '../utilities/users-service';
 
-function SignUpForm() {
+function SignUpForm({ setUser }) {
 
   const [formData, setFormData] = useState({
     name: '',
@@ -12,8 +13,19 @@ function SignUpForm() {
 
   const [disable, setDisable] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const sanitizedFormData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      }
+      const user = await signUp(sanitizedFormData);
+      setUser(user);
+    } catch {
+      setFormData({...formData, error: 'Sign up failed! Try again!'})
+    }
   }
 
   const handleChange = (event) => {
